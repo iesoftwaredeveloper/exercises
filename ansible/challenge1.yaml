@@ -1,6 +1,6 @@
 ---
 - name: Challenge Me
-  hosts: rll04747-mac39
+  hosts: host1
 
   tasks:
     - name: ansible pip
