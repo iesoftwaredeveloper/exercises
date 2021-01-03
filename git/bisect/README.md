@@ -2,13 +2,18 @@
 
 A demonstration of how to use [bisect](https://git-scm.com/docs/git-bisect) in git.
 
-Bisect can be useful when trying to determine when a bug or other behavior was introduced into a case base.  Bisect is useful for debugging the code to determine when it was introduced.
+Bisect can be useful when trying to determine when a bug or other behavior was introduced into a case base.
 
 To use Bisect, you need to determine the last good revision and the first bad revision.
 
 To demonstrate bisect, we will use a simple text file.  In real practice, you would likely have a test suite that you could run agains the code and it would tell you if the code is passing or not.  If the test suite passes then the current revision is good.  If it fails, then the current revision is bad.
 
-To begin, first create a simple text file.  You can put whatever you want in this test file.  I am going to create a file called quotes.md.  This file will contains a collection of quotes.
+In this tutorial we will learn how to use the following ```git bisect``` commands:
+
+- git bisect start
+- git bisect bad
+- git bisect start
+- get bisect reset
 
 ## Step one - Create quotes.md
 
