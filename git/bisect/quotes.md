@@ -24,3 +24,7 @@
 > Walk beside me... just be my friend"
 >
 > -- Albert Camus
+
+> Don't be upset by the result you didn't get with the work you didn't do
+> 
+> -- Unknown (Found on a bag of tea)
