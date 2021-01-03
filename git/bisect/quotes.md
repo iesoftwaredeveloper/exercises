@@ -7,3 +7,7 @@
 > “Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live”
 >
 > -― John Woods
+
+> An investment in knowledge pays the best interest.
+>
+> -–  Benjamin Fraknlin
