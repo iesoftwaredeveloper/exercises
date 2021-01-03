@@ -8,6 +8,19 @@
 >
 > -― John Woods
 
+> "Mathematicians deal with large numbers sometimes, but never in their income."
+>
+> -- Isaac Asimov, Prelude to Foundation
+
 > An investment in knowledge pays the best interest.
 >
 > -–  Benjamin Fraknlin
+
+> "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe."
+> -- Albert Einstein
+
+> "Don’t walk in front of me... I may not follow
+> Don’t walk behind me... I may not lead
+> Walk beside me... just be my friend"
+>
+> -- Albert Camus
