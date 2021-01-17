@@ -2,6 +2,8 @@
 
 The Map object in Javascript can be though of similar to a dictionary.  It is a collection of key-value pairs.  A feature is that the Map object retains the insertion order of the keys.  Additionally, any value can be used as a key or value.  This includes objects as well as primitive values.
 
+You can find [sample code here](MapObject.js)
+
 ## Creating a Map
 
 Creating a map is simple.
