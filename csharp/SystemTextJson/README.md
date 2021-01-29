@@ -1,6 +1,10 @@
 # SystemTextJson
 
-A demostration of System.Text.Json
+## How to use this project
+
+- Download the files in this directory
+- dotnet build
+- dotnet run
 
 ## JsonDocument
 
