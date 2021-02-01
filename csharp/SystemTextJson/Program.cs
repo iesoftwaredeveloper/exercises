@@ -95,7 +95,7 @@ namespace SystemTextJson
 
             // Method 1: Deserialize from string.
             // Step 1: Get the JSON string you want to deserialize.
-            JsonDocument document = JsonDocument_ParseAsync(new JsonDocumentOptions()).Result;
+            JsonDocument document = JsonDocument_ParseAsync(new JsonDocumentOptions());
 
             // Step 2: Get the Root Element and convert it to a string.
             string json = document.RootElement.ToString();
@@ -555,7 +555,7 @@ namespace SystemTextJson
         /// </summary>
         public static async void JsonElement_Example()
         {
-            JsonDocument document = await JsonDocument_ParseAsync(new JsonDocumentOptions());
+            JsonDocument document = JsonDocument_ParseAsync(new JsonDocumentOptions());
             JsonElement rootElement = document.RootElement;
             Console.WriteLine("{0}", rootElement.ValueKind); // Object
 
@@ -573,12 +573,35 @@ namespace SystemTextJson
 
             catch { Console.WriteLine("Exception as expected"); }
 
+            // You can only get properties that are at the same level as the JsonElement
+            try
+            {
+                element = rootElement.GetProperty("full_name");
+                Console.WriteLine("{0} {1}", element.ValueKind, element.GetRawText()); // Number
+            }
+            catch { Console.WriteLine("Exception as expected"); }
+
             JsonElement elementArray = rootElement.GetProperty("results");
             Console.WriteLine("{0} {1}", elementArray.ValueKind, elementArray.GetArrayLength()); // Array
+
+            // We cannot access an individual property of an object from an Array
+            try
+            {
+                element = elementArray.GetProperty("full_name");
+                Console.WriteLine("{0} {1}", element.ValueKind, element.GetRawText()); // Number
+            }
+            catch { Console.WriteLine("Exception as expected"); }
+
+            // Grab the first element (a JSON Object) in the array using LINQ.
             element = elementArray.EnumerateArray().First();
             Console.WriteLine("{0}", element.ValueKind); // Object
+
+            // Reference an object in the array using Item[index]
             element = elementArray[1];
             Console.WriteLine("{0} {1}", element.ValueKind, element.GetRawText()); // Object
+            
+            // Access a property of the object.
+            Console.WriteLine("{0} {1}", element.GetProperty("full_name").ValueKind, element.GetProperty("full_name").GetRawText()); // Number
 
             JsonElement.ObjectEnumerator objectEnumerator = rootElement.EnumerateObject();
             foreach (JsonProperty property in objectEnumerator)
@@ -689,7 +712,7 @@ namespace SystemTextJson
         /// <summary>
         /// simple demonstration of the ParseAsync() method
         /// </summary>
-        public static async Task<JsonDocument> JsonDocument_ParseAsync(JsonDocumentOptions options)
+        public static JsonDocument JsonDocument_ParseAsync(JsonDocumentOptions options)
         {
             CancellationTokenSource source = new CancellationTokenSource();
             CancellationToken cancellationToken = source.Token;
@@ -702,7 +725,8 @@ namespace SystemTextJson
             JsonDocument jsonDocument = null;
             using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
-                jsonDocument = await JsonDocument.ParseAsync(fs, options, cancellationToken: cancellationToken);
+                jsonDocument = JsonDocument.ParseAsync(fs, options, cancellationToken: cancellationToken).Result;
+
                 JsonElement rootElement = jsonDocument.RootElement;
                 Console.WriteLine("Root Element ({0})", rootElement.ValueKind);
             }
