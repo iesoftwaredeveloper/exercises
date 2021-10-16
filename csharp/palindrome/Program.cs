@@ -89,5 +89,27 @@ namespace palindrome
 
             return IsPalindrome_WithRecursion(s.Substring(1, s.Length - 2));
         }
+
+        /// <summary>
+        /// This method represents a solution that works.  However,
+        /// the method is so over the top complicated that it is beyond
+        /// necessary.
+        /// 
+        /// Please do not solve the exercise using a method like this.
+        /// Yes, I have seen this done before.  No I won't mentioned the
+        /// person that tried to solve it like this.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static bool IsPalindrome_RubeGoldberg(string s)
+        {
+            // Split the string tinto two parts.
+
+            // Reverse the second part
+
+            // See if the two parts match.
+
+            return false;
+        }
     }
 }
