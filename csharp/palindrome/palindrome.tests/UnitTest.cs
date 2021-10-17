@@ -17,6 +17,8 @@ namespace palindrome.tests
         }
 
         [Theory]
+        [InlineData("a", true)]
+        [InlineData("", true)]
         [InlineData("rotor", true)]
         [InlineData("rater", false)]
         [InlineData("ele’ele", true)]
@@ -40,12 +42,14 @@ namespace palindrome.tests
             var sut = Program.IsPalindrome_ByIndex(sample);
             sw.Stop();
 
-            _output.WriteLine($"[{sw.ElapsedTicks}]");
+            _output.WriteLine($"[{sw.ElapsedTicks}] {sample}");
 
             Assert.Equal(expected,sut);
         }
 
         [Theory]
+        [InlineData("a", true)]
+        [InlineData("", true)]
         [InlineData("rotor", true)]
         [InlineData("rater", false)]
         [InlineData("ele’ele", true)]
@@ -69,12 +73,14 @@ namespace palindrome.tests
             var sut = Program.IsPalindrome_WithLinq(sample);
             sw.Stop();
 
-            _output.WriteLine($"[{sw.ElapsedTicks}]");
+            _output.WriteLine($"[{sw.ElapsedTicks}] {sample}");
 
             Assert.Equal(expected,sut);
         }
 
         [Theory]
+        [InlineData("a", true)]
+        [InlineData("", true)]
         [InlineData("rotor", true)]
         [InlineData("rater", false)]
         [InlineData("ele’ele", true)]
