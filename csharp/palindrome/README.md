@@ -142,6 +142,8 @@ The memory allocation is really a sum of a series of numbers.  While not an exac
 
 In order to express this in big O notation I will estimate it as one half n to the power of 2 or O((n^2)/2). This is a rough estimation and the actual performance is better than this.  As the size of the string increases, the estimated big O is much further from the actual value.  However, since the intent of the big O notation is to provide a quick estimate of the complexity it makes for a good way to compare to other methods.
 
+One last thing to consider when using recursion is the call stack.  Each time the method is called it requires that the the current memory space be placed onto the call stack.  This increases the time and spaced used by the system to manage the call stack.
+
 ## Solution: Rube Goldberg
 
 For the last method I decided to take an approach that was more complicated than necessary.  To see why I chose the name of the solution see [Rube Goldberg machine](https://en.wikipedia.org/wiki/Rube_Goldberg_machine).
