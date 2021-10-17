@@ -12,10 +12,15 @@ namespace palindrome
         {
             Console.WriteLine($"rotor IsPalindrome_ByIndex: {IsPalindrome_ByIndex("rotor")}");
             Console.WriteLine($"rater IsPalindrome_ByIndex: {IsPalindrome_ByIndex("rater")}");
+
             Console.WriteLine($"rotor IsPalindrome_WithLinq: {IsPalindrome_WithLinq("rotor")}");
             Console.WriteLine($"rater IsPalindrome_WithLinq: {IsPalindrome_WithLinq("rater")}");
+
             Console.WriteLine($"rotor IsPalindrome_WithRecursion: {IsPalindrome_WithRecursion("rotor")}");
             Console.WriteLine($"rater IsPalindrome_WithRecursion: {IsPalindrome_WithRecursion("rater")}");
+
+            Console.WriteLine($"rotor IsPalindrome_RubeGoldberg: {IsPalindrome_RubeGoldberg("rotor")}");
+            Console.WriteLine($"rater IsPalindrome_RubeGoldberg: {IsPalindrome_RubeGoldberg("rater")}");
         }
 
         /// <summary>
@@ -107,13 +112,16 @@ namespace palindrome
         /// <returns></returns>
         public static bool IsPalindrome_RubeGoldberg(string s)
         {
-            // Split the string into two parts.
+            int midpoint = (s.Length%2 == 0) ? s.Length/2 : s.Length/2 + 1;
 
-            // Reverse the second part
+            // Split the string into two parts.
+            var mirror = s.Substring(midpoint).ToCharArray(); // Take the second part of the string.
+
+            // Reverse the second part, but since String class does not have a reverse method, you have to use Array.
+            Array.Reverse(mirror);
 
             // See if the two parts match.
-
-            return false;
+            return s.Substring(0, s.Length/2).Equals(new String(mirror));
         }
     }
 }
