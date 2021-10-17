@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("palindrome.tests")]
+
 namespace palindrome
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
@@ -103,7 +107,7 @@ namespace palindrome
         /// <returns></returns>
         public static bool IsPalindrome_RubeGoldberg(string s)
         {
-            // Split the string tinto two parts.
+            // Split the string into two parts.
 
             // Reverse the second part
 
