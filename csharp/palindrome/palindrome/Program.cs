@@ -117,7 +117,7 @@ namespace palindrome
             // Split the string into two parts.
             var mirror = s.Substring(midpoint).ToCharArray(); // Take the second part of the string.
 
-            // Reverse the second part, but since String class does not have a reverse method, you have to use Array.
+            // Reverse the second part, but since String class does not have a reverse method, use Array.
             Array.Reverse(mirror);
 
             // See if the two parts match.
