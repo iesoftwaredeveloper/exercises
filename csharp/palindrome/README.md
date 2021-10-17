@@ -140,7 +140,58 @@ The first time through the method the memory allocated is n - 2 when the length 
 
 The memory allocation is really a sum of a series of numbers.  While not an exact formula the general sum of memory that needs to be allocated for a string to be tested with the recursive method is (n/2) x (n-2) when the length of the original string is odd.  If the length of the original string is even then the amount of memory allocated is (n/2) x (n-2) - ((n-2)/2).
 
-If we want to express this in big O notation we can further estimate it as one half n to the power of 2 or O((n^2)/2). This is a very rough estimation and the actual performance is better than this.  As the size of the string increases, the estimated big O is much further from the actual value.  However, since the intent of the big O notation is to provide a quick estimate of the complexity it makes for a good way to compare to other methods.
+In order to express this in big O notation I will estimate it as one half n to the power of 2 or O((n^2)/2). This is a rough estimation and the actual performance is better than this.  As the size of the string increases, the estimated big O is much further from the actual value.  However, since the intent of the big O notation is to provide a quick estimate of the complexity it makes for a good way to compare to other methods.
+
+## Solution: Rube Goldberg
+
+For the last method I decided to take an approach that was more complicated than necessary.  To see why I chose the name of the solution see [Rube Goldberg machine](https://en.wikipedia.org/wiki/Rube_Goldberg_machine).
+
+### Algorithm: Rube Goldberg
+
+1. Get the midpoint of the string, accounting for an odd or even length string.
+2. Get the last half of the original string as a substring that should be tested for equality with the first half of the string.
+3. Reverse the second half of the string.
+4. Test if the first half of the string is equal to the reversed half of the second string.
+
+### Implementation: Rube Goldberg
+
+```csharp
+public static bool IsPalindrome_RubeGoldberg(string s)
+{
+    int midpoint = (s.Length%2 == 0) ? s.Length/2 : s.Length/2 + 1;
+
+    // Split the string into two parts.
+    var mirror = s.Substring(midpoint).ToCharArray(); // Take the second part of the string.
+
+    // Reverse the second part, but since String class does not have a reverse method, use Array.
+    Array.Reverse(mirror);
+
+    // See if the two parts match.
+    return s.Substring(0, s.Length/2).Equals(new String(mirror));
+}
+```
+
+This implementation is not so easy to understand.  It works, but there is a lot of work going on that is just not necessary.
+
+The first thing that is done is to determine the midpoint of the string.  This is required to extract the substring that will be reversed.
+
+To avoid using Linq which was used in a previous implementation the extracted substring must be converted to a character array.  This is necessary because the `String` class does not have a built in `reverse` method.  In order to reverse the substring the `Reverse()` method of the `Array` class is being used.  This requires that the item to be reversed is an array of characters.
+
+In order to test the two parts for equality it is necessary to extract the first half of the string as a substring so that it can be compared to the reversed substring.  Since the reversed substring is now an array of characters it needs to first be converted back into a string.
+
+Finally after extracting both halves of the string and converting them to the same type the test for equality can be made.
+
+When evaluating the performance of the algoritm the time complexity is similar to the Linq method.  There are a fixed number of operations and they all are executed the same number of times regardless of the size of the input string.  Since the methods that are doing the work are not exposed the actual time complexity cannot be reliably determined.  The complexity of the code that is written is O(1) because the same number of operations are performed for all problem sets.  In reality the complexity is probably more O(n).
+
+The space complexity is also not able to be reliably determined since the memory allocation of the standard methods used are not known.  The code that is in the implementation can be used to determine a best guess though.  
+
+The allocation of the midpoint is of type O(1) since it does not depend on the size of the input string.
+
+The allocation of space for the `mirror` substring is interesting.  The final `mirror` will hold a character array the size of n/2.  In order to create the array a substring of size n/2 must first be created.  This effectively requires a space complexity of O(n) to get an array of size n/2.
+
+The last line of the implementation that does the comparison has several space allocations.  First there is an additional string allocated from the `mirror` in order to convert it from a character array to a string.  The size of this string is n/2.  In order to compare only the first half of the input string another substring must be allocated for the first half of the input string.  This is also of size n/2.  This makes the last line a O(n/2) space complexity.
+
+This makes the overall space complexity of this implementation a O(n) implementation.
 
 ## Performance
 
@@ -148,12 +199,12 @@ After evaluating the methods the real question is which is better?  I ran severa
 
 Here is what the results were.
 
-| Method | Max Ticks | Min Ticks | Mean Ticks | Median Ticks |
-|--------|-----------|-----------|------------|--------------|
-| By Index | 576 | 100 | 145.9285714 | 110.5 | 2043 |
-| WithLinq | 10723 | 907 | 2117.142857 | 1144 | 29640 |
-| WithRecursion | 3908 | 195 | 565.5714286 | 214.5 |7918 |
-| WithRubeGoldberg | 559 | 409 | 455.2857143 | 451.5 | 6374 |
+| Method | Max Ticks | Min Ticks | Mean Ticks | Median Ticks | Sum | Space | Time |
+|--------|-----------|-----------|------------|--------------|-----|-------|------|
+| By Index | 576 | 100 | 145.9285714 | 110.5 | 2043 | O(1) | O(n/2) |
+| WithLinq | 10723 | 907 | 2117.142857 | 1144 | 29640 | O(n) | O(n)? |
+| WithRecursion | 3908 | 195 | 565.5714286 | 214.5 | 7918 | O((n^2)/2) | O(n) |
+| WithRubeGoldberg | 559 | 409 | 455.2857143 | 451.5 | 6374 | O(n) | O(n/2) |
 
 | Sample | WithIndex | WithLinq | WithRecursion | WithRubeGoldberg | MAX | MIN | Median | Sum |
 |--------|-----------|----------|---------------|------------------|-----|-----|--------|-----|
